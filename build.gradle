@@ -1,0 +1,22 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+mainClassName = 'edu.tamu.istmhrs.view.Main'
+
+repositories {
+    mavenCentral();
+}
+
+dependencies {
+    compile group: 'org.neo4j.driver', name: 'neo4j-java-driver', version: '1.4.4'
+    implementation 'com.google.guava:guava:21.0'
+    testImplementation 'junit:junit:4.12'
+}
+
+task loadDB (type: JavaExec) {
+   classpath = sourceSets.main.runtimeClasspath
+   main='edu.tamu.istmhrs.data.Neo4jInitiator'
+}
+
+run.dependsOn(loadDB)
